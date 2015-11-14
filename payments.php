@@ -53,7 +53,7 @@ $balance = $json_feed->balance;
 <script type="text/javascript" src="https://blockchain.info/Resources/wallet/pay-now-button.js"></script>
 <body>
 
-<p> Direct your friends to this link to get paid!: <a href = "<?php echo $bitcoinpayaddress; ?>" > Blockchain Link </a> </p>  Or have them send you money from the QR code here: <br>  <b> <img src="<?php echo $bitcoinpayaddress; ?>" > </b> 
+<p> Direct your friends to this link to get paid!: <a href = "<?php echo $bitcoinpayaddress; ?>" target="_blank"> Blockchain Link </a> </p>  Or have them send you money from the QR code here: <br>  <b> <img src="<?php echo $bitcoinpayaddress; ?>" > </b> 
 
 
 <!--
