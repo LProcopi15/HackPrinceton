@@ -24,9 +24,10 @@ if($db->connect_error){
 }
 //if($_POST[''])
 if ($_POST['facebook_name'] != null) {
+	echo "hi";
 	$name = $_POST['facebook_name'];
 	$email = $_POST['facebook_email'];
-	$username = $_POST['facebook_username'];
+	$username =  $_POST['facebook_username'];
 	$password = 'password';
 	$picture = $_POST['facebook_picture'];
 
@@ -34,7 +35,9 @@ if ($_POST['facebook_name'] != null) {
 	$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
 		$db->query($query) or die ("Invalid insert " .$db->error);
+
 	echo 'Facebook Sign In';
+
 }
 else{
 	if ($_POST['password1']==$_POST['password2']) {

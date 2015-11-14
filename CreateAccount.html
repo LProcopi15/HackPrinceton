@@ -22,10 +22,22 @@
     				//get the users name and username
     				document.getElementById("facebook_name").value = response.name;
     				document.getElementById("facebook_username").value = response.id;
+
     				//submit the user information to our SQL script
     				document.getElementById('submission').action = "userCreationSQL.php";
     				document.getElementById('submission').submit();
 	  			});
+/*	  			FB.api('/me?fields=first_name', function(response) {
+	  				document.getElementById("facebook_firstname").value = response.first_name;
+	  				document.getElementById('submission').action = "userCreationSQL.php";
+    				document.getElementById('submission').submit();
+	  			});	  			
+	  			FB.api('/me?fields=last_name', function(response) {
+	  				document.getElementById("facebook_lastname").value = response.last_name;
+	  				document.getElementById('submission').action = "userCreationSQL.php";
+    				document.getElementById('submission').submit();
+	  			});
+*/
 	  			FB.api('/me?fields=email', function(response) {
 	  				document.getElementById("facebook_email").value = response.email;
 	  				document.getElementById('submission').action = "userCreationSQL.php";
@@ -33,7 +45,7 @@
 	  			});
 	  			//Call facebook picture
 	  			FB.api('/me/picture?width=180&height=180', function(response) {
-    				document.getElementById("facebook_picture").value = response.data;
+    				document.getElementById("facebook_picture").value = response.data.url;
 	  				document.getElementById('submission').action = "userCreationSQL.php";
     				document.getElementById('submission').submit();
 	  			});
@@ -115,8 +127,9 @@
 	        <label>Email: <input name="email"type="email"/><br></label>
 	        <label>Password: <input name="password1" id="password"/></label><br>
 	        <label>Confirm Password: <input name="password2"/></label><br>
-	        <input name="facebook_name" id="facebook_name" type="hidden"></input>
-	        <input name="facebook_username" id="facebook_username"  type="hidden"></input>
+
+	        <input name="facebook_name" id="facebook_name"  type="hidden"></input>
+	        <input name="facebook_username" id="facebook_username" type="hidden"></input>
 	        <input name="facebook_email" id="facebook_email"  type="hidden"></input>
 	        <input name="facebook_picture" id="facebook_picture"  type="hidden"></input>
 	        <input type="submit" value="Create Account" id="create_account">
