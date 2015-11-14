@@ -1,8 +1,6 @@
 <?php
 
-//create database:
-
-define("DB_HOST", "localhost");
+/*define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
 define("DB_DATABASE", "test");
@@ -11,9 +9,10 @@ define("DB_DATABASE", "test");
 
 //Create new database named test
 $db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
 $testdatabase = mysql_select_db("test");
+*/
 
+$db = mysqli_connect('localhost', 'root', 'password', 'test');
 
 if($db->connect_error){
 
@@ -36,8 +35,7 @@ if ($_POST['facebook_name'] != null) {
 
 		$db->query($query) or die ("Invalid insert " .$db->error);
 
-	echo 'Facebook Sign In';
-
+	header("Location: landingPage.html");
 }
 else{
 	if ($_POST['password1']==$_POST['password2']) {
@@ -51,11 +49,13 @@ else{
 		$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
 		$db->query($query) or die ("Invalid insert " .$db->error);
+
 	}
 	else {
 		echo "Passwords do not match. Please go back to login";
 	}
-	echo 'Regular Sign in';
+	header("Location: landingPage.html");
+	//echo 'Regular Sign in';
 }
 
 ?>
