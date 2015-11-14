@@ -42,7 +42,6 @@ if(!function_exists('curl_init')) {
 class Blockchain {
     const URL = 'https://blockchain.info/';
 
-
     private $ch;
     private $api_code = null;
 
@@ -141,3 +140,5 @@ class Blockchain {
         return $json;
     }
 }
+
+?>
