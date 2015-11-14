@@ -22,19 +22,40 @@ if($db->connect_error){
     exit;
 
 }
-if ($_POST['password1']==$_POST['password2']) {
-	$name = $_POST['name'];
-	$email = $_POST['email'];
-	$username = $_POST['username'];
-	$password = $_POST['password1'];
+//if($_POST[''])
+if ($_POST['facebook_name'] != null) {
+	echo "hi";
+	$name = $_POST['facebook_name'];
+	$email = $_POST['facebook_email'];
+	$username =  $_POST['facebook_username'];
+	$password = 'password';
+	$picture = $_POST['facebook_picture'];
 
 
-	$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`) VALUES('$name', '$username', '$email', '$password')";
+	$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
-	$db->query($query) or die ("Invalid insert " .$db->error);
+		$db->query($query) or die ("Invalid insert " .$db->error);
+
+	echo 'Facebook Sign In';
+
 }
-else {
-	echo "Passwords do not match. Please go back to login";
+else{
+	if ($_POST['password1']==$_POST['password2']) {
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$username = $_POST['username'];
+		$password = $_POST['password1'];
+		$picture = "https://www.teachforamerica.org/sites/default/files/styles/large/public/thumbnails/image/headshot.png?itok=EW2-dSgB";
+
+
+		$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
+
+		$db->query($query) or die ("Invalid insert " .$db->error);
+	}
+	else {
+		echo "Passwords do not match. Please go back to login";
+	}
+	echo 'Regular Sign in';
 }
 
 ?>

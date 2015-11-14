@@ -1,4 +1,8 @@
 <?php
+
+header("Location: ../views/index.html");
+die();
+
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
@@ -15,7 +19,10 @@ if($db->connect_error){
     exit;
 }
 
-$makeUsers = $db->query("create table Users(ID int primary key not null auto_increment, Name char(50) not null, Username char (50) not null, Email char(100) not null, Password char(15) not null)");
+//$drop = $db->query("drop table Users");
+//mysql_query($drop);
+
+$makeUsers = $db->query("create table Users(ID int primary key not null auto_increment, Name char(50) not null, Username char (50) not null, Email char(100) not null, Password char(15) not null, imgdata char(200) not null)");
 $makeRelationship = $db->query("create table Relationship(Friend1 int not null, Friend2 int not null, Status int not null)");
 
 
