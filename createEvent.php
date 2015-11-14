@@ -14,6 +14,9 @@ session_start();
                 <p>Friend's name:</p>
                 <input type="text" name="name" value="">
                 <br></br>
+                <p>Event location:</p>
+                <input type="text" name="name" value="">
+                <br></br>
                 <input type='button' value="Add" onclick='processWritein()'>
             </form>
         </div>
