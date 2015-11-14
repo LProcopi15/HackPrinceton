@@ -1,0 +1,113 @@
+<head>	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+	<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+	<script src="https://github.com/jzaefferer/jquery-validation"></script> 
+</head>
+	<script>
+	  	// This is called with the results from from FB.getLoginStatus().
+	  	function statusChangeCallback(response) {
+    		console.log('statusChangeCallback');
+    		console.log(response);
+    			if (response.status === 'connected') {
+      			// Logged into your app and Facebook.
+      				loginAPI();
+    			} else if (response.status === 'not_authorized') {
+      			// The person is logged into Facebook, but not your app.
+
+      				document.getElementById('status').innerHTML = 'Please log ' +
+        				'into this app.';
+    			} else {
+      			// The person is not logged into Facebook, so we're not sure if
+      			// they are logged into this app or not.
+      			document.getElementById('status').innerHTML = 'Please log ' +
+        			'into Facebook.';
+    			}
+  		}	
+
+	  	// This function is called when someone finishes with the Login
+	  	// Button.  See the onlogin handler attached to it in the sample
+	  	// code below.
+	  	function checkLoginState() {
+	    	FB.getLoginStatus(function(response) {
+	    	FB.login(response);
+	    	});
+	  	}
+	  	window.fbAsyncInit = function() {
+   			FB.init({
+      			appId      : '204505849880545',
+      			xfbml      : true,
+      			version    : 'v2.5'
+   			});
+  		
+
+  		FB.getLoginStatus(function(response) {
+    		statusChangeCallback(response);
+  		});
+
+  		};
+ 
+
+  		(function(d, s, id){
+     		var js, fjs = d.getElementsByTagName(s)[0];
+     		if (d.getElementById(id)) {return;}
+    		js = d.createElement(s); js.id = id;
+     		js.src = "//connect.facebook.net/en_US/sdk.js";
+     		fjs.parentNode.insertBefore(js, fjs);
+   		}(document, 'script', 'facebook-jssdk'));
+
+	  	function loginAPI() {
+   			console.log('Welcome!  Fetching your information.... ');
+    		FB.api('/me', function(response) {
+      		console.log('Successful login for: ' + response.name);
+      		document.getElementById('status').innerHTML =
+        	'Thanks for logging in, ' + response.name + '!';
+        	
+    });
+  }
+	</script>
+<body>
+
+	<form action="/HackPrinceton/init.php" method='post' id='submission'>
+	        <label>First Name: <input name="firstname"/></label><br>
+	        <label>Last Name: <input name="lastname"/></label><br>
+
+	        <label>Username: <input name="username"/></label><br>
+	        <label>Password: <input name="password"/></label><br>
+	<input type="submit" value="Create Account" id="create_account">
+	</form>
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+</body>
+<script>
+$().ready(function() {
+	$("#submission").validate({
+		rules: {
+			firstname: "required",
+			lastname: "required",
+			username: {
+				required: true,
+				email: true
+			},
+			password: {
+				required: true,
+				minlength: 6,
+			},
+		},
+		messages: {
+			firstname: "Please enter a first name",
+			lastname: "Please enter a last name",
+			username: "Please enter a valid email",
+			password: {
+				required: "Please provide a password",
+				minlength: "Your password must be at least 6 characters"
+			},
+		}
+	});
+});
+
+</script>
