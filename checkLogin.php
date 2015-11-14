@@ -1,15 +1,12 @@
 <?php
 
-header("Location: ../views/index.html");
+header("Location: views/index.html");
 die();
 
 session_start();
 
 $sessionUsername = $_POST['username'];
 $sessionPassword = $_POST['password'];
-
-
-
 
 $db = mysqli_connect('localhost', 'root', 'password', 'test');
 if($db->connect_error){
