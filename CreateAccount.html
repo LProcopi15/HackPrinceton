@@ -6,78 +6,123 @@
 	<script src="https://github.com/jzaefferer/jquery-validation"></script> 
 </head>
 	<script>
-	  	// This is called with the results from from FB.getLoginStatus().
-	  	function statusChangeCallback(response) {
+  		// This is called with the results from from FB.getLoginStatus().
+  		function statusChangeCallback(response) {
     		console.log('statusChangeCallback');
     		console.log(response);
-    			if (response.status === 'connected') {
+	    	// The response object is returned with a status field that lets the
+	    	// app know the current login status of the person.
+	    	// Full docs on the response object can be found in the documentation
+	    	// for FB.getLoginStatus().
+	    	if (response.status === 'connected') {
       			// Logged into your app and Facebook.
-      				loginAPI();
-    			} else if (response.status === 'not_authorized') {
-      			// The person is logged into Facebook, but not your app.
+      			console.log(response.authResponse.accessToken);
+      			FB.api('/me', function(response) {
+    				console.log(JSON.stringify(response));
+    				//get the users name and username
+    				document.getElementById("facebook_name").value = response.name;
+    				document.getElementById("facebook_username").value = response.id;
+    				//submit the user information to our SQL script
+    				document.getElementById('submission').action = "userCreationSQL.php";
+    				document.getElementById('submission').submit();
+	  			});
+	  			FB.api('/me?fields=email', function(response) {
+	  				document.getElementById("facebook_email").value = response.email;
+	  				document.getElementById('submission').action = "userCreationSQL.php";
+    				document.getElementById('submission').submit();
+	  			});
+	  			//Call facebook picture
+	  			FB.api('/me/picture?width=180&height=180', function(response) {
+    				document.getElementById("facebook_picture").value = response.data;
+	  				document.getElementById('submission').action = "userCreationSQL.php";
+    				document.getElementById('submission').submit();
+	  			});
 
-      				document.getElementById('status').innerHTML = 'Please log ' +
-        				'into this app.';
-    			} else {
+      			testAPI();
+    		} else if (response.status === 'not_authorized') {
+      			// The person is logged into Facebook, but not your app.
+      			document.getElementById('status').innerHTML = 'Please log ' +
+        			'into this app.';
+   			} else {
       			// The person is not logged into Facebook, so we're not sure if
       			// they are logged into this app or not.
-      			document.getElementById('status').innerHTML = 'Please log ' +
-        			'into Facebook.';
-    			}
-  		}	
+      		document.getElementById('status').innerHTML = 'Please log ' +
+        		'into Facebook.';
+    		}
+  		}
 
-	  	// This function is called when someone finishes with the Login
-	  	// Button.  See the onlogin handler attached to it in the sample
-	  	// code below.
-	  	function checkLoginState() {
-	    	FB.getLoginStatus(function(response) {
-	    	FB.login(response);
-	    	});
-	  	}
-	  	window.fbAsyncInit = function() {
-   			FB.init({
-      			appId      : '204505849880545',
-      			xfbml      : true,
-      			version    : 'v2.5'
-   			});
-  		
+		// This function is called when someone finishes with the Login
+		// Button.  See the onlogin handler attached to it in the sample
+		// code below.
+		function checkLoginState() {
+			FB.getLoginStatus(function(response) {
+		    	statusChangeCallback(response);
+		    }); 
+		}
 
-  		FB.getLoginStatus(function(response) {
-    		statusChangeCallback(response);
-  		});
+		window.fbAsyncInit = function() {
+			FB.init({
+		    	appId      : '204505849880545',
+		    	cookie     : true,  // enable cookies to allow the server to access 
+		                        // the session
+		    	xfbml      : true,  // parse social plugins on this page
+		    	version    : 'v2.2', // use version 2.2
+		  	});
 
-  		};
- 
+		// Now that we've initialized the JavaScript SDK, we call 
+		// FB.getLoginStatus().  This function gets the state of the
+		// person visiting this page and can return one of three states to
+		// the callback you provide.  They can be:
+		//
+		// 1. Logged into your app ('connected')
+		// 2. Logged into Facebook, but not your app ('not_authorized')
+		// 3. Not logged into Facebook and can't tell if they are logged into
+		//    your app or not.
+		//
+		// These three cases are handled in the callback function.
 
-  		(function(d, s, id){
-     		var js, fjs = d.getElementsByTagName(s)[0];
-     		if (d.getElementById(id)) {return;}
-    		js = d.createElement(s); js.id = id;
-     		js.src = "//connect.facebook.net/en_US/sdk.js";
-     		fjs.parentNode.insertBefore(js, fjs);
-   		}(document, 'script', 'facebook-jssdk'));
+	  		FB.getLoginStatus(function(response) {
+	    		statusChangeCallback(response);
+	  		});
 
-	  	function loginAPI() {
-   			console.log('Welcome!  Fetching your information.... ');
+	  	};
+
+  		// Load the SDK asynchronously
+  		(function(d, s, id) {
+    		var js, fjs = d.getElementsByTagName(s)[0];
+    		if (d.getElementById(id)) return;
+    			js = d.createElement(s); js.id = id;
+    			js.src = "//connect.facebook.net/en_US/sdk.js";
+    			fjs.parentNode.insertBefore(js, fjs);
+  		}(document, 'script', 'facebook-jssdk'));
+
+  		// Here we run a very simple test of the Graph API after login is
+  		// successful.  See statusChangeCallback() for when this call is made.
+  		function testAPI() {
+    		console.log('Welcome!  Fetching your information.... ');
     		FB.api('/me', function(response) {
-      		console.log('Successful login for: ' + response.name);
+      		console.log('Successful login for: ' + response.name + response.p);
       		document.getElementById('status').innerHTML =
         	'Thanks for logging in, ' + response.name + '!';
-        	
+
     });
-  }
+}
 	</script>
 <body>
-
-	<form action="/HackPrinceton/init.php" method='post' id='submission'>
-	        <label>First Name: <input name="firstname"/></label><br>
-	        <label>Last Name: <input name="lastname"/></label><br>
-	        <label>Email: <input name="email"type="email"/><br></label>
+	<form action="/HackPrinceton/userCreationSQL.php" method='post' id='submission'>
+	        <label>Name: <input name="name"/></label><br>
 	        <label>Username: <input name="username"/></label><br>
-	        <label>Password: <input name="password"/></label><br>
-	<input type="submit" value="Create Account" id="create_account">
+	        <label>Email: <input name="email"type="email"/><br></label>
+	        <label>Password: <input name="password1" id="password"/></label><br>
+	        <label>Confirm Password: <input name="password2"/></label><br>
+	        <input name="facebook_name" id="facebook_name" type="hidden"></input>
+	        <input name="facebook_username" id="facebook_username"  type="hidden"></input>
+	        <input name="facebook_email" id="facebook_email"  type="hidden"></input>
+	        <input name="facebook_picture" id="facebook_picture"  type="hidden"></input>
+	        <input type="submit" value="Create Account" id="create_account">
 	</form>
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+
+<fb:login-button scope="public_profile,email,user_likes" auth_type="rerequest" onlogin="checkLoginState();">
 </fb:login-button>
 
 <div id="status">
@@ -87,25 +132,28 @@
 $().ready(function() {
 	$("#submission").validate({
 		rules: {
-			firstname: "required",
-			lastname: "required",
+			name: "required",
+			username: {
+				required: true,
+			},
 			email: {
 				required: true,
 				email: true
 			},
-			username: {
-				required: true,
-			},
-			password: {
+			password1: {
 				required: true,
 				minlength: 6,
 			},
+			password2: {
+				required: true,
+				minlength: 6,
+				equalTo: "#password"
+			},
 		},
 		messages: {
-			firstname: "Please enter a first name",
-			lastname: "Please enter a last name",
-			email: "Please enter a valid email",
+			name: "Please enter a name",
 			username: "Please enter a username",
+			email: "Please enter a valid email",
 			password: {
 				required: "Please provide a password",
 				minlength: "Your password must be at least 6 characters"
