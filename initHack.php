@@ -16,7 +16,7 @@ $drop = $db->query("drop table Users");
 mysql_query($drop);
 */
 
-$makeUsers = $db->query("create table Users(ID int primary key not null auto_increment, Name char(50) not null, Username char (50) not null, Email char(100) not null, Password char(15) not null, imgdata longblob not null)");
+$makeUsers = $db->query("create table Users(ID int primary key not null auto_increment, Name char(50) not null, Username char (50) not null, Email char(100) not null, Password char(15) not null, imgdata char(200) not null)");
 $makeRelationship = $db->query("create table Relationship(Friend1 int not null, Friend2 int not null, Status int not null)");
 $makeDiscounts = $db->query("create table Discount(Restaurant char(30) not null, Discount char(50) not null, Location char(150) not null)");
 $makeEvent = $db->query("create table Event(Driver char(50) not null, Time date not null, Attendees char(100) not null, Destination char(75) not null)");

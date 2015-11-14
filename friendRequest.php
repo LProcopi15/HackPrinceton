@@ -12,8 +12,6 @@ define("DB_USER", "root");
 define("DB_PASSWORD", "");
 define("DB_DATABASE", "test");
 
-
-
 //Create new database named test
 $db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $testdatabase = mysql_select_db("test");
@@ -46,23 +44,23 @@ if(!$friendsInfo) {
      $equalbackwards = mysqli_query($db,"SELECT * FROM Relationship WHERE Friend2 = '$uniqueID' and Friend1 = '$uniqueID'");
      //can't add yourself, can't re request
      if($fetch = mysqli_fetch_array($exists)){
-         header("Location: /HackPrinceton/addFriend.php");
+         header("Location: /HackPrinceton/views/addFriend.php");
      }
      if($fetch = mysqli_fetch_array($backwards)){
-         header("Location: /HackPrinceton/addFriend.php");
+         header("Location: /HackPrinceton/views/addFriend.php");
      }
      if($fetch = mysqli_fetch_array($equalbackwards)){
-         header("Location: /HackPrinceton/addFriend.php");
+         header("Location: /HackPrinceton/views/addFriend.php");
      }
      if($fetch = mysqli_fetch_array($equal)){
-         header("Location: /HackPrinceton/addFriend.php");
+         header("Location: /HackPrinceton/views/addFriend.php");
      }
      
      else{
     $query = "insert into Relationship values ($IDone, $uniqueID, 1)"; 
     $db->query($query) or die ("Invalid insert " . $db->error); 
      }
-     header("Location: addFriend.php");
+     header("Location: views/addFriend.php");
  ?>
 
     <!--   <form action = mailFriend.php method = "POST">

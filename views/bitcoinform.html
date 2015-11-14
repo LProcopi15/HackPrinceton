@@ -10,24 +10,8 @@
   <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
   <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
   <script src="https://github.com/jzaefferer/jquery-validation"></script> 
-<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/freelancer.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- Custom buttons -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 </head>
 <body>
     <!-- Navigation -->
@@ -77,11 +61,11 @@
 			<form role="form" action="payments.php" method="POST" id="submission_bit">
 				<div class="form-group">
 					<label for="identifier">Identifier:</label>
-					<input type="text" name="identifier" class="form-control" id="identifier">
+					<input type="text" name="identifier" placeholder="a052bae6-39c2-a549-bf91-a5f21e9fde29" class="form-control" id="identifier">
 				</div>
 				<div class="form-group">
 					<label for="pwd">Password:</label>
-					<input type="text" name="password" class="form-control" id="pwd">
+					<input type="text" name="password" placeholder="bitcoin password" class="form-control" id="pwd">
 				</div>
 				<input type="submit" class="btn btn-default" id="bit_submit" name="Submit">
 			</form>
