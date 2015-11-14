@@ -23,11 +23,14 @@ session_start();
 
 
         <script>
-            function processData() {
+            function processData(arguments) {
 
                 var httpRequest;
 
-                var name = arguments[0]; // get type of call
+                alert("This is the HTTPRequest" + httpRequest);
+
+                var name = "bopbop"; // get type of call
+                alert(name);
 
                 if (window.XMLHttpRequest) { // Mozilla, Safari, ...
                     //alert('XMLHttpRequest');
@@ -50,11 +53,12 @@ session_start();
                     return false;
                 }
 
+                alert('process data far in');
+
                 // Set data to submit to server, based on the type of the action
-                var data;
-                data = 'name=' + name;
-
-
+                var data = 'name=' + name; 
+                alert("predata");
+                alert(data);
                 // I have used POST here because GET requests may be cached.  For more 
                 // details about this problem, see:
                 // http://www.w3schools.com/ajax/ajax_xmlhttprequest_send.asp
@@ -74,13 +78,14 @@ session_start();
             //function that happens on click but i'm not sure this is really needed as a separate function??
 
             function processWritein() {
+                alert('processing');
                 var name = document.riders.name.value;
                 processData(name);
-
 
             }
 
             function showUser(httpRequest, name) {
+                alert('showUser');
                 if (httpRequest.readyState == 4) {
                     if (httpRequest.status == 200) {
                         test = document.getElementById("test");
