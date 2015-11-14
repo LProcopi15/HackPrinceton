@@ -72,7 +72,7 @@
 	<form action="/HackPrinceton/init.php" method='post' id='submission'>
 	        <label>First Name: <input name="firstname"/></label><br>
 	        <label>Last Name: <input name="lastname"/></label><br>
-
+	        <label>Email: <input name="login"type="email"/><br></label>
 	        <label>Username: <input name="username"/></label><br>
 	        <label>Password: <input name="password"/></label><br>
 	<input type="submit" value="Create Account" id="create_account">
@@ -89,6 +89,10 @@ $().ready(function() {
 		rules: {
 			firstname: "required",
 			lastname: "required",
+			login: {
+				required: true,
+				email: true
+			},
 			username: {
 				required: true,
 				email: true
@@ -101,6 +105,7 @@ $().ready(function() {
 		messages: {
 			firstname: "Please enter a first name",
 			lastname: "Please enter a last name",
+			login: "Please enter a valid email",
 			username: "Please enter a valid email",
 			password: {
 				required: "Please provide a password",

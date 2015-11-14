@@ -25,11 +25,12 @@ if($db->connect_error){
 
 $firstName = $_POST['firstname'];
 $lastName = $_POST['lastname'];
+$email = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "INSERT INTO Users (firstname, lastname, email, password) 
-			VALUES ('$firstName', '$lastName', '$username', 'password')";
+$sql = "INSERT INTO Users (firstname, lastname, email, username, password) 
+			VALUES ('$firstName', '$lastName', '$email', '$username', 'password')";
 
 echo "success";
 
