@@ -1,24 +1,44 @@
 <?php
-
 require 'vendor/autoload.php';
-
 require_once('src/Blockchain.php');
 
+$Blockchain = new \Blockchain\Blockchain();
+$identifier = $_POST['identifier'];
+$password = stripslashes($_POST['password']);
 
-//https://blockchain.info/qr?data=1QHGj8ooHoLxoGCJc2GBsxRBJd4pwNnTGx&size=250
+var_dump($identifier);
+print_r($password) . "<br />" . PHP_EOL;
+
+if(is_null($identifier) || is_null($password)) {
+    echo "Please enter a wallet GUID and password.<br/>";
+    exit;
+}
+
+//https://blockchain.info/qr?data=1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR&size=250
 //Method for creating QR code from bitcoin address
 
-$guid="4ab6d116-4fd7-4c76-9e2f-942c23ba2b11"; //My identifier
-$main_password="Gorp$!9bop";
-$myaddress = "1QHGj8ooHoLxoGCJc2GBsxRBJd4pwNnTGx";
-//My Address 1QHGj8ooHoLxoGCJc2GBsxRBJd4pwNnTGx
+$guid="a5ae20b6-39c2-49a5-91bf-de21e99fa5f2"; //My identifier
+$main_password="Gorpbopbop";
+$myaddress = "1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR";
 
-$newAddress = json_decode(file_get_contents("https://blockchain.info/merchant/$guid/new_address?password=$main_password"), true);
-//$parseAddress = $newAddress[address];
+//Get user wallet addresses, pick first one and give users that address
+$Blockchain->Wallet->credentials($identifier, $password);
+echo "Using wallet " . $Blockchain->Wallet->getIdentifier() . "<br />" . PHP_EOL;
+$DDaddresses = $Blockchain->Wallet->getAddresses();
+print_r($DDaddresses[0]);
 
-//echo $parseAddress;
+//My Address 1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR
 
-$json_url = "https://blockchain.info/merchant/$guid/balance?password=$main_password";
+$newAddress = json_decode(file_get_contents("https://blockchain.info/merchant/$identifier/new_address?password=$password"), true);
+$parseAddress = $newAddress['address'];
+
+echo "New Address: " . $parseAddress;
+
+$bitcoinpayaddress = PHP_EOL . "https://blockchain.info/qr?data=$parseAddress&size=250" . PHP_EOL;
+echo "Send your riders to this address to get paid!: " . $bitcoinpayaddress;
+
+
+$json_url = "https://blockchain.info/merchant/$identifier/balance?password=$password";
 
 $json_data = file_get_contents($json_url);
 
@@ -28,22 +48,40 @@ $balance = $json_feed->balance;
 
 echo "Your balance is " . $balance;
 
-$api_code = null;
-if(file_exists('code.txt')) {
-    $api_code = trim(file_get_contents('code.txt'));
-}
-
-$Blockchain = new \Blockchain\Blockchain();
-
-$ch = curl_init();
-
-curl_setopt($ch, CURLOPT_URL, "/merchant/$guid/payment?password=$main_password&address=$myaddress&amount=20000&from=$myaddress&fee=1000&note=bop");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_HEADER, FALSE);
-
-$response = curl_exec($ch);
-curl_close($ch);
-echo "   ";
-var_dump($response);
-
 ?>
+
+<html>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://blockchain.info/Resources/wallet/pay-now-button.js"></script>
+<body>
+
+<form input="text" 
+
+<p> Please send your tip to this BTC address: <?php echo $parseAddress; ?> </p> <b> <img src="https://blockchain.info/qr?data=<?php echo $parseAddress; ?>&size=250" > </b> 
+
+
+
+<div style="font-size:16px;margin:0 auto;width:300px" class="blockchain-btn"
+     data-address="<?php echo $parseAddress ?>" 	
+     data-shared="false">
+    <div class="blockchain stage-begin">
+        <img src="https://blockchain.info/Resources/buttons/donate_64.png"/>
+    </div>
+    <div class="blockchain stage-loading" style="text-align:center">
+        <img src="https://blockchain.info/Resources/loading-large.gif"/>
+    </div>
+    <div class="blockchain stage-ready">
+         <p align="center">Please Donate To Bitcoin Address: <b>[[address]]</b></p>
+         <p align="center" class="qr-code"></p>
+    </div>
+    <div class="blockchain stage-paid">
+         Donation of <b>[[value]] BTC</b> Received. Thank You.
+    </div>
+    <div class="blockchain stage-error">
+        <font color="red">[[error]]</font>
+    </div>
+</div>
+
+
+</body>
+</html>
