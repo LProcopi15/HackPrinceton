@@ -9,7 +9,7 @@ $currentProfile = $_SESSION["Username"];
 //$db = mysqli_connect('localhost', 'root', 'password', 'test');
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
-define("DB_PASSWORD", "");
+define("DB_PASSWORD", "password");
 define("DB_DATABASE", "test");
 
 //Create new database named test
@@ -38,51 +38,9 @@ if(!$friendsInfo) {
     echo $uniqueID;
     echo '<br>';
     $userEmail = $row['Email'];
-    $exists = mysqli_query($db,"SELECT * FROM Relationship WHERE Friend1 = '$IDone' and Friend2 = '$uniqueID'"); 
-    $backwards = mysqli_query($db,"SELECT * FROM Relationship WHERE Friend2 = '$IDone' and Friend1 = '$uniqueID'"); 
-     $equal = mysqli_query($db,"SELECT * FROM Relationship WHERE Friend2 = '$IDone' and Friend1 = '$IDone'"); 
-     $equalbackwards = mysqli_query($db,"SELECT * FROM Relationship WHERE Friend2 = '$uniqueID' and Friend1 = '$uniqueID'");
-     //can't add yourself, can't re request
-     if($fetch = mysqli_fetch_array($exists)){
-         header("Location: /HackPrinceton/views/addFriend.php");
-     }
-     if($fetch = mysqli_fetch_array($backwards)){
-         header("Location: /HackPrinceton/views/addFriend.php");
-     }
-     if($fetch = mysqli_fetch_array($equalbackwards)){
-         header("Location: /HackPrinceton/views/addFriend.php");
-     }
-     if($fetch = mysqli_fetch_array($equal)){
-         header("Location: /HackPrinceton/views/addFriend.php");
-     }
-     
-     else{
-    $query = "insert into Relationship values ($IDone, $uniqueID, 1)"; 
-    $db->query($query) or die ("Invalid insert " . $db->error); 
-     }
-     header("Location: views/addFriend.php");
+  
+	$query = "insert into Relationship values ($IDone, $uniqueID, 1)"; 
+	$db->query($query) or die ("Invalid insert " . $db->error); 
+    header("Location: views/addFriend.php");
+ }
  ?>
-
-    <!--   <form action = mailFriend.php method = "POST">
-         <p>Add <?php echo $friend ?> ? </p>
-         <input type = hidden name = "requesterUsername" value = <?php echo $currentProfile ?>>
-         <input type = hidden name = "requesteeEmail" value = <?php echo $userEmail ?>>
-         <input type = hidden name = "requesteeUsername" value = <?php echo $friend ?>>
-         <input type = submit name = submit >
-    </form>-->
-
-
-    <?php
-     //$_SESSION["friendMessage"]= "User added!";
-     
-        }
-
-/*else{
-    $_SESSION["friendMessage"] = "This person does not exist!";
-   header("Location: addFriend.php");
-}*/
-
- 
-
-
-?>

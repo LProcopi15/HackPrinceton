@@ -1,9 +1,20 @@
-<!DOCTYPE html>
-
 <?php 
 session_start();
 
 $name = $_SESSION["Name"];
+$username = $_SESSION["Username"];
+$db = mysqli_connect('localhost', 'root', 'password', 'test');
+if($db->connect_error){
+    print "Error - Could not connnect to MySQL";
+    exit;
+}
+
+$result = mysqli_query($db,"SELECT * FROM Users WHERE Username = '$username'"); 
+if($row = mysqli_fetch_array($result)){
+    $img = $row['imgdata'];
+	echo $img;
+}
+
 ?>
 
 <html lang="en">
@@ -71,13 +82,16 @@ $name = $_SESSION["Name"];
                         <a href="#page-top">Home</a>
                     </li>
                      <li class="page-scroll">
-                        <a href="addFriend.php">Friends</a>
+                        <a href="addFriend.php">Add Friend</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#discountmap">Discount Map</a>
                     </li>
                     <li class="page-scroll">
                         <a href="bitcoinform.html">Pay</a>
+                    </li>
+					<li class="page-scroll">
+                        <a href="../landing-page/landing.html">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -93,7 +107,7 @@ $name = $_SESSION["Name"];
                 <div class="col-lg-12">
                     <div class="intro-text">
                         <span class="skills">Welcome, <?php echo $name; ?> !</span>
-                        <img class="img-responsive" src="img/profile.png" alt="" width="200">
+                        <img class="img-responsive" src="<?php echo $img; ?>" alt="" width="200">
                     </div>
 
                         <a type="button" href="createEvent.php" class="btn btn-default">I'm DD-ing!</a>
