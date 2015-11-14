@@ -135,7 +135,7 @@ session_start();
                 httpRequest2.open('POST', 'finalize.php', true);
                 httpRequest2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 httpRequest2.send(pushThis);
-                window.location = "/HackPrinceton/views/index.html";
+                window.location = "/HackPrinceton/views/index.php";
 
 
             }
