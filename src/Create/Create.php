@@ -39,3 +39,5 @@ class Create {
         return new WalletResponse($this->blockchain->post('api/v2/create_wallet', $params));
     }
 }
+
+?>
