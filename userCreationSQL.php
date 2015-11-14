@@ -27,7 +27,6 @@ if ($_POST['facebook_name'] != null) {
 	$password = 'password';
 	$picture = $_POST['facebook_picture'];
 
-
 	$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
 	$db->query($query) or die ("Invalid insert " .$db->error);
