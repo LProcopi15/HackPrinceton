@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<?php 
+session_start();
+
+$name = $_SESSION["Name"];
+?>
+
 <html lang="en">
 
 <head>
@@ -82,7 +89,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text">
-                        <span class="skills">Welcome, <?php ?>!</span>
+                        <span class="skills">Welcome, <?php echo $name; ?> !</span>
                         <img class="img-responsive" src="img/profile.png" alt="" width="200">
                     </div>
                         <button type="button" class="btn btn-warning">I'm DD-ing!</button>

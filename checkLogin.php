@@ -1,8 +1,4 @@
 <?php
-
-header("Location: views/index.html");
-die();
-
 session_start();
 
 $sessionUsername = $_POST['username'];
@@ -27,12 +23,15 @@ if(!$result) {
      $_SESSION["ID"]=$row['ID'];
      $_SESSION["Email"]=$row['Email'];
      
-     header("Location: /HackPrinceton/addFriend.php");
+     //header("Location: /HackPrinceton/addFriend.php");
      $_SESSION["login"]= "true";
+     header("Location: views/index.html");
+        die();
         }
 
 else{
 
-    
 }
+
+
 ?>
