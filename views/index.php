@@ -2,15 +2,9 @@
 
 <?php 
 session_start();
-include 'myfile.php';
 
 $name = $_SESSION["Name"];
 ?>
-
-#wrapper {
-  width:700px;
-  clear:both;
-}
 
 <html lang="en">
 

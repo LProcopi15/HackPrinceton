@@ -216,13 +216,13 @@ echo "<h3> You have no pending requests at this time! </h3>";
                     var confirmed = httpRequest.responseText;
                     help = document.getElementById("help");
                     if (confirmed == "accepted") {
-                        window.location = "../landing-page/landing.html"
-                        alert("?");
+                        window.location = "index.php"
+                    
 
                     }
                     if (confirmed == "declined") {
                         help.innerHTML = "You have declined this request!";
-                        window.location = "../landing-page/landing.html"
+                        window.location = "index.php"
                     }
                 }
             }

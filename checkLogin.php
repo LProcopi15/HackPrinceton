@@ -34,7 +34,7 @@ if(!$result) {
      $_SESSION["Email"]=$row['Email'];
      
      $_SESSION["login"]= "true";
-     header("Location: views/index.html");
+     header("Location: views/index.php");
         }
 else{
     
