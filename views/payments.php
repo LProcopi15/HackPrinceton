@@ -97,7 +97,7 @@ $balance = $json_feed->balance;
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="index.html">Home</a>
+                        <a href="index.php">Home</a>
                     </li>
                     <li class="page-scroll">
                         <a href="addFriend.php">Add Friend</a>

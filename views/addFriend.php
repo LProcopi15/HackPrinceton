@@ -25,7 +25,48 @@
 
 </head>
 <body>
-<nav>FUCK NAV BARS</nav>
+<!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#page-top">Designated.</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="index.php">Home</a>
+                    </li>
+                     <li class="page-scroll">
+                        <a href="addFriend.php">Add Friend</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#discountmap">Discount Map</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="bitcoinform.html">Pay</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="../landing-page/landing.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
 <div class='container' style="margin-top: 120px;">
 	<div id="friend_form">
 		<h2 id="friend_title">Add a friend:</h2>

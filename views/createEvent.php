@@ -61,7 +61,7 @@ session_start();
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="index.html">Home</a>
+                        <a href="index.php">Home</a>
                     </li>
                     <li class="page-scroll">
                         <a href="addFriend.php">Add Friend</a>
@@ -240,7 +240,7 @@ session_start();
                 httpRequest2.open('POST', 'finalize.php', true);
                 httpRequest2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 httpRequest2.send(pushThis);
-                window.location = "/HackPrinceton/views/index.html";
+                window.location = "/HackPrinceton/views/index.php";
 
 
             }
