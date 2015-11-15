@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Designated. - Login</title>
+    <title>Designated. - Sign Up</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -20,13 +20,6 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
-    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
-    <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
-    <script src="https://github.com/jzaefferer/jquery-validation"></script> 
-     <!-- Custom CSS -->
-    <link href="css/landing-page.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,6 +28,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+  <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+  <script src="https://github.com/jzaefferer/jquery-validation"></script> 
 </head>
 
 <body>
@@ -77,15 +75,17 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h3>Login</h3>
-                        <hr class="intro-divider">
-                        <form role="form" action="/HackPrinceton/checkLogin.php" method='post' id='submission'>
+                    </div>
+                     <hr class="intro-divider">
+                     <div id="login_form_wrapper">
+                        <form role="form" action="/HackPrinceton/checkLogin.php" method='post' id='submission_login'>
                             <div class="form-group">
                                 <label for="username">Username:</label>
-                                <input name="username" class="form-control">
+                                <input id="username" name="username" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" name="username" class="form-control">
+                                <input type="password" id="password" name="password" class="form-control">
                             </div>
                             <input type="submit" value="Login" class="btn btn-default btn-lg" name="Submit">
                         </form>
@@ -137,18 +137,26 @@
 </body>
 
 </html>
+<style type="text/css">
+    #login_form_wrapper {
+        width: 20%;
+        margin: auto;
+    }
 
-<script type="text/javascript">
-    $().ready(function() {
-    $("#submission").validate({
+</style>
+
+<script>
+$().ready(function() {
+    $("#submission_login").validate({
         rules: {
             username: "required",
             password: "required",
+
         },
         messages: {
             username: "Enter an username",
             password: "Enter a password",
-        }
+        },
     });
 });
 </script>
