@@ -1,14 +1,16 @@
 <?php
 
-/**
+
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
-define("DB_PASSWORD", "hello");
+define("DB_PASSWORD", "");
 define("DB_DATABASE", "test");
-**/
+
+$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+$testdatabase = mysql_select_db("test");
 
 //Create new database named test
-$db = mysqli_connect('localhost', 'root', 'hello', 'test');
+//$db = mysqli_connect('localhost', 'root', 'hello', 'test');
 //$testdatabase = mysql_select_db("test");
 
 if($db->connect_error){

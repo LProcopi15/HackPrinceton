@@ -54,7 +54,7 @@
             document.getElementById("facebook_username").value = response.id;
 
             //submit the user information to our SQL script
-            document.getElementById('submission').action = "userCreationSQL.php";
+            document.getElementById('submission').action = "../userCreationSQL.php";
             document.getElementById('submission').submit();
           });
 /*          FB.api('/me?fields=first_name', function(response) {
@@ -70,13 +70,13 @@
 */
           FB.api('/me?fields=email', function(response) {
             document.getElementById("facebook_email").value = response.email;
-            document.getElementById('submission').action = "userCreationSQL.php";
+            document.getElementById('submission').action = "../userCreationSQL.php";
             document.getElementById('submission').submit();
           });
           //Call facebook picture
           FB.api('/me/picture?width=180&height=180', function(response) {
             document.getElementById("facebook_picture").value = response.data.url;
-            document.getElementById('submission').action = "userCreationSQL.php";
+            document.getElementById('submission').action = "../userCreationSQL.php";
             document.getElementById('submission').submit();
           });
 
