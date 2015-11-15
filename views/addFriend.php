@@ -42,17 +42,17 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
+                 <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
                         <a href="index.html">Home</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#page-top">Add Friend</a>
+                        <a href="#page-top">Friends</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="history.html">History</a>
+                        <a href="/index.html#discountmap">Discount Map</a>
                     </li>
                     <li class="page-scroll">
                         <a href="bitcoinform.html">Pay</a>
@@ -63,7 +63,7 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-<body>
+
 <div class='container' style="margin-top: 120px;">
 	<div id="friend_form">
 		<h2 id="friend_title">Add a friend:</h2>
