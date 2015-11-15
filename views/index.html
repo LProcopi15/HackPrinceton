@@ -7,6 +7,11 @@ include 'myfile.php';
 $name = $_SESSION["Name"];
 ?>
 
+#wrapper {
+  width:700px;
+  clear:both;
+}
+
 <html lang="en">
 
 <head>
@@ -75,7 +80,7 @@ $name = $_SESSION["Name"];
                         <a href="addFriend.php">Add Friend</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="history.html">History</a>
+                        <a href="#discountmap">Discount Map</a>
                     </li>
                     <li class="page-scroll">
                         <a href="bitcoinform.html">Pay</a>
@@ -104,15 +109,84 @@ $name = $_SESSION["Name"];
     </header>
 
     <!-- Portfolio Grid Section -->
-    <section id="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Upcoming Events</h2>
-                </div>
-            </div>
+    <section id="discountmap">
 
-        </div>
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+  <title>Google Maps Multiple Markers</title> 
+  <script src="http://maps.google.com/maps/api/js?sensor=false" 
+          type="text/javascript"></script>
+</head>
+
+<div id="wrapper" class ="container">
+	<div class="row">
+	
+  <h2 class="text-center"> Designated Discounts </h2> <br>
+
+<div class="col-xs-6"> 
+  <div id="map" style="width: 500px; height: 400px;"> </div>
+</div>
+
+
+
+<div id="discounts" class="col-xs-6"> 
+  <p>
+	  <br> Chipotle - 10% off meal
+      <br> Taco Bell - One free burrito
+      <br> McDonalds - Free small fries
+      <br> Outback Steakhouse - One free non-alcoholic drink
+      <br> Christians - Free slice of pizza
+	  <br> Boylan Heights - Half off loaded tots or fries
+	  <br> Pigeon Hole - Buy one get one free late night breakfast
+	  <br> Trinity Irish Pub - Unlimited refills for regular soda
+	  <br> Got Dumplings - Free tofu dumplings or bubble tea
+	  <br> Cook out - Half off milkshake
+  </p>
+  
+  </div>
+</div> </div>
+
+
+  <script type="text/javascript">
+    var locations = [
+      ['Chipotle - 10% off meal', 38.049170, -78.503690, 10],
+      ['Taco Bell - One free burrito', -33.923036, 151.259052, 9],
+      ['McDonalds - Free small fries', 38.032854, -78.484963, 8],
+      ['Outback Steakhouse - One free non-alcoholic drink', 38.065883, -78.487291, 7],
+      ['Christians - Free slice of pizza', 38.030804, -78.482211, 6],
+	  ['Boylan Heights - Half off loaded tots or fries', 38.034106, -78.499367, 5],
+	  ['Pigeon Hole - Buy one get one free late night breakfast', 38.036055, -78.500198, 4],
+	  ['Trinity Irish Pub - Unlimited refills for regular soda', 38.034929, -78.500308, 3],
+	  ['Got Dumplings - Free tofu dumplings or bubble tea', 38.034021, -78.499211, 2],
+	  ['Cook out - Half off milkshake', 38.054967, -78.496842, 1]
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+      center: new google.maps.LatLng(38.04708, -78.49689),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+</body>
+
     </section>
 
     <!-- About Section -->
@@ -490,6 +564,25 @@ $name = $_SESSION["Name"];
 
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
+	
+	<script>
+	#wrapper {
+		width:400px;
+		margin:auto;
+	}
+	
+	#map {
+		
+		width:200px;
+		float:left;
+	}
+	
+	#discounts {
+		
+		width:200px;
+		float:left;
+	}
+	</script>
 
 </body>
 
