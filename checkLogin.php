@@ -9,8 +9,6 @@ $sessionPassword = $_POST['password'];
 //define("DB_PASSWORD", "");
 //define("DB_DATABASE", "test");
 
-
-
 //Create new database named test
 //$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //$testdatabase = mysql_select_db("test");

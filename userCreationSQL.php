@@ -1,6 +1,5 @@
 <?php
 
-
 //define("DB_HOST", "localhost");
 //define("DB_USER", "root");
 //define("DB_PASSWORD", "");
@@ -38,8 +37,8 @@ if ($_POST['facebook_name'] != null) {
 
 	$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
-		$db->query($query) or die ("Invalid insert " .$db->error);
-     header("Location: views/index.html");
+	$db->query($query) or die ("Invalid insert " .$db->error);
+    header("Location: landing-page/login.html");
 
 	echo 'Facebook Sign In';
 
@@ -56,7 +55,7 @@ else{
 		$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
 		$db->query($query) or die ("Invalid insert " .$db->error);
-     header("Location: views/index.html");
+     header("Location: landing-page/login.html");
 	}
 	else {
 		echo "Passwords do not match. Please go back to login";
@@ -65,20 +64,3 @@ else{
 }
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
