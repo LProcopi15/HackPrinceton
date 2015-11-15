@@ -1,3 +1,4 @@
+
 <?php
 require 'vendor/autoload.php';
 require_once('src/Blockchain.php');
@@ -47,41 +48,84 @@ $balance = $json_feed->balance;
 //echo "Your balance is " . $balance;
 
 ?>
+<head>
+  <title>Bitcoin Submission</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ 
+<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<html>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://blockchain.info/Resources/wallet/pay-now-button.js"></script>
+    <!-- Custom CSS -->
+    <link href="css/freelancer.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom buttons -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#page-top">Designated.</a>
+            </div>
 
-<p> Direct your friends to this link to get paid!: <a href = "<?php echo $bitcoinpayaddress; ?>" target="_blank"> Blockchain Link </a> </p>  Or have them send you money from the QR code here: <br>  <b> <img src="<?php echo $bitcoinpayaddress; ?>" > </b> 
-
-
-<!--
-
-This code is just for a bitcoin donate button
-
-<div style="font-size:16px;margin:0 auto;width:300px" class="blockchain-btn"
-     data-address="<?php echo $parseAddress; ?>" 	
-     data-shared="false">
-    <div class="blockchain stage-begin">
-        <img src="https://blockchain.info/Resources/buttons/donate_64.png"/>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="views/index.html">Home</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="views/history.html">History</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="views/bitcoinform.html">Pay</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+  <div id="move-down" style="margin-top: 70px;">
+        <h2 class="pay_titles">Direct your friends to <a href = "<?php echo $bitcoinpayaddress; ?>" target="_blank"> this link </a> to get paid!</h2>
+        <h3 class="pay_titles"> Or have them send you money from the QR code here: </h3>
+        <img class="center-block" src="<?php echo $bitcoinpayaddress; ?>" >
     </div>
-    <div class="blockchain stage-loading" style="text-align:center">
-        <img src="https://blockchain.info/Resources/loading-large.gif"/>
-    </div>
-    <div class="blockchain stage-ready">
-         <p align="center">Please Donate To Bitcoin Address: <b>[[address]]</b></p>
-         <p align="center" class="qr-code"></p>
-    </div>
-    <div class="blockchain stage-paid">
-         Donation of <b>[[value]] BTC</b> Received. Thank You.
-    </div>
-    <div class="blockchain stage-error">
-        <font color="red">[[error]]</font>
-    </div>
-</div>
--->
 
 
 </body>
-</html>
+<style>
+    body {
+        background-color: #50B7A5;
+        color: white;
+    }
+    .pay_titles {
+        padding: 15px;
+        text-align: center;
+    }
+</style>

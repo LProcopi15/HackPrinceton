@@ -1,15 +1,61 @@
+
+<?php
+require '../vendor/autoload.php';
+require_once('../src/Blockchain.php');
+
+$Blockchain = new \Blockchain\Blockchain();
+$identifier = $_POST['identifier'];
+$password = stripslashes($_POST['password']);
+
+//var_dump($identifier);
+//print_r($password) . "<br />" . PHP_EOL;
+
+if(is_null($identifier) || is_null($password)) {
+    echo "Please enter a wallet GUID and password.<br/>";
+    exit;
+}
+
+//https://blockchain.info/qr?data=1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR&amount=500&size=250
+//Method for creating QR code from bitcoin address
+
+$guid="a5ae20b6-39c2-49a5-91bf-de21e99fa5f2"; //My identifier
+$main_password="Gorpbopbop";
+$myaddress = "1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR";
+
+//Get user wallet addresses, pick first one and give users that address
+$Blockchain->Wallet->credentials($identifier, $password);
+//echo "Using wallet " . $Blockchain->Wallet->getIdentifier() . "<br />" . PHP_EOL;
+$DDaddresses = $Blockchain->Wallet->getAddresses();
+//print_r($DDaddresses[0]);
+
+//My Address 1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR
+
+$newAddress = json_decode(file_get_contents("https://blockchain.info/merchant/$identifier/new_address?password=$password"), true);
+$parseAddress = $newAddress['address'];
+
+//echo "New Address: " . $parseAddress;
+
+$bitcoinpayaddress = "https://blockchain.info/qr?data=$parseAddress&size=250";
+
+$json_url = "https://blockchain.info/merchant/$identifier/balance?password=$password";
+
+$json_data = file_get_contents($json_url);
+
+$json_feed = json_decode($json_data);
+
+$balance = $json_feed->balance;
+
+//echo "Your balance is " . $balance;
+
+?>
 <head>
-  <title>Payment Submission</title>
+  <title>Bitcoin Submission</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
-  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
-  <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
-  <script src="https://github.com/jzaefferer/jquery-validation"></script> 
+ 
 <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -60,7 +106,7 @@
                         <a href="history.html">History</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#page-top">Pay</a>
+                        <a href="bitcoinform.html">Pay</a>
                     </li>
                 </ul>
             </div>
@@ -68,65 +114,21 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-<div id= id="all_cont_bit">
-    <div id="move-down" style="margin-top: 120px;">
-		<div id="bit_form">
-			<h2 class="bit_titles"> Pay via bitcoin?</h2>
-			<h4 class="bit_titles"> Enter your blockchain.info identifier and password to generate your bitcoin QR code: </h4> 
-		
-			<form role="form" action="payments.php" method="POST" id="submission_bit">
-				<div class="form-group">
-					<label for="identifier">Identifier:</label>
-					<input type="text" name="identifier" class="form-control" id="identifier">
-				</div>
-				<div class="form-group">
-					<label for="pwd">Password:</label>
-					<input type="text" name="password" class="form-control" id="pwd">
-				</div>
-				<input type="submit" class="btn btn-default" id="bit_submit" name="Submit">
-			</form>
+  <div id="move-down" style="margin-top: 120px;">
+        <h2 class="pay_titles">Direct your friends to <a href = "<?php echo $bitcoinpayaddress; ?>" target="_blank"> this link </a> to get paid!</h2>
+        <h3 class="pay_titles"> Or have them send you money from the QR code here: </h3>
+        <img class="center-block" src="<?php echo $bitcoinpayaddress; ?>" >
+    </div>
 
-			<h2 class="bit_titles"> Pay with Venmo <a href = "https://venmo.com/?txn=pay&recipients=Enter_DD_Name_Here&amount=2.00&note=for+being+a+great+DD" target="_blank"> here </h2> 
-		</div>
-	</div>
-</div>
+
 </body>
-
-	<style>
-		body {
-			background-color: #50B7A5;
-			color: white;
-			height: 
-		}
-		#bit_form {
-			width: 50%;
-			margin: auto;
-		}
-		.form-group {
-			margin: auto;
-		}
-		.bit_titles {
-			padding: 15px;
-			text-align: center;
-		}
-		#identifier, #bit_submit, #pwd {
-			margin-top: 4px;
-			margin-bottom: 6px;
-		}
-	</style>
-
-<script>
-	$().ready(function() {
-	$("#submission_bit").validate({
-		rules: {
-			identifier: "required",
-			password: "required",
-
-		},
-		messages: {
-			identifier: "Enter an indentifier",
-			password: "Enter a password",
-		}
-	});
-});
-</script>
+<style>
+    body {
+        background-color: #50B7A5;
+        color: white;
+    }
+    .pay_titles {
+        padding: 15px;
+        text-align: center;
+    }
+</style>
