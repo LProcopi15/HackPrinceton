@@ -97,16 +97,19 @@ $balance = $json_feed->balance;
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="index.php">Home</a>
+                        <a href="#page-top">Home</a>
                     </li>
-                    <li class="page-scroll">
+                     <li class="page-scroll">
                         <a href="addFriend.php">Add Friend</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="history.html">History</a>
+                        <a href="#discountmap">Discount Map</a>
                     </li>
                     <li class="page-scroll">
                         <a href="bitcoinform.html">Pay</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="../landing-page/landing.html">Logout</a>
                     </li>
                 </ul>
             </div>
