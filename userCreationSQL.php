@@ -1,20 +1,26 @@
 <?php
 
 
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASSWORD", "");
-define("DB_DATABASE", "test");
+//define("DB_HOST", "localhost");
+//define("DB_USER", "root");
+//define("DB_PASSWORD", "");
+//define("DB_DATABASE", "test");
 
 
 
 //Create new database named test
-$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-$testdatabase = mysql_select_db("test");
+//$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+//$testdatabase = mysql_select_db("test");
 
 
 //$db = mysqli_connect('localhost', 'root', 'password', 'test');
 
+//if($db->connect_error){
+//    print "Error - Could not connnect to MySQL";
+ //   exit;
+//}
+
+$db = mysqli_connect('localhost', 'root', 'password', 'test');
 if($db->connect_error){
     print "Error - Could not connnect to MySQL";
     exit;
@@ -33,6 +39,7 @@ if ($_POST['facebook_name'] != null) {
 	$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
 		$db->query($query) or die ("Invalid insert " .$db->error);
+     header("Location: views/index.html");
 
 	echo 'Facebook Sign In';
 
@@ -49,6 +56,7 @@ else{
 		$query = "INSERT INTO Users(`Name`, `Username`, `Email`, `Password`, `imgdata`) VALUES('$name', '$username', '$email', '$password', '$picture')";
 
 		$db->query($query) or die ("Invalid insert " .$db->error);
+     header("Location: views/index.html");
 	}
 	else {
 		echo "Passwords do not match. Please go back to login";
