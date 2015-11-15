@@ -1,61 +1,15 @@
-
-<?php
-require 'vendor/autoload.php';
-require_once('src/Blockchain.php');
-
-$Blockchain = new \Blockchain\Blockchain();
-$identifier = $_POST['identifier'];
-$password = stripslashes($_POST['password']);
-
-//var_dump($identifier);
-//print_r($password) . "<br />" . PHP_EOL;
-
-if(is_null($identifier) || is_null($password)) {
-    echo "Please enter a wallet GUID and password.<br/>";
-    exit;
-}
-
-//https://blockchain.info/qr?data=1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR&amount=500&size=250
-//Method for creating QR code from bitcoin address
-
-$guid="a5ae20b6-39c2-49a5-91bf-de21e99fa5f2"; //My identifier
-$main_password="Gorpbopbop";
-$myaddress = "1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR";
-
-//Get user wallet addresses, pick first one and give users that address
-$Blockchain->Wallet->credentials($identifier, $password);
-//echo "Using wallet " . $Blockchain->Wallet->getIdentifier() . "<br />" . PHP_EOL;
-$DDaddresses = $Blockchain->Wallet->getAddresses();
-//print_r($DDaddresses[0]);
-
-//My Address 1JcnG7mrpj3gcE7njLmqxeGyQJMquCkHpR
-
-$newAddress = json_decode(file_get_contents("https://blockchain.info/merchant/$identifier/new_address?password=$password"), true);
-$parseAddress = $newAddress['address'];
-
-//echo "New Address: " . $parseAddress;
-
-$bitcoinpayaddress = "https://blockchain.info/qr?data=$parseAddress&size=250";
-
-$json_url = "https://blockchain.info/merchant/$identifier/balance?password=$password";
-
-$json_data = file_get_contents($json_url);
-
-$json_feed = json_decode($json_data);
-
-$balance = $json_feed->balance;
-
-//echo "Your balance is " . $balance;
-
-?>
 <head>
-  <title>Bitcoin Submission</title>
+  <title>Add Friends.</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
- 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+  <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+  <script src="https://github.com/jzaefferer/jquery-validation"></script> 
 <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -97,13 +51,16 @@ $balance = $json_feed->balance;
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="views/index.html">Home</a>
+                        <a href="index.html">Home</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="views/history.html">History</a>
+                        <a href="#page-top">Add Friend</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="views/bitcoinform.html">Pay</a>
+                        <a href="history.html">History</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="bitcoinform.html">Pay</a>
                     </li>
                 </ul>
             </div>
@@ -111,21 +68,40 @@ $balance = $json_feed->balance;
         </div>
         <!-- /.container-fluid -->
     </nav>
-  <div id="move-down" style="margin-top: 70px;">
-        <h2 class="pay_titles">Direct your friends to <a href = "<?php echo $bitcoinpayaddress; ?>" target="_blank"> this link </a> to get paid!</h2>
-        <h3 class="pay_titles"> Or have them send you money from the QR code here: </h3>
-        <img class="center-block" src="<?php echo $bitcoinpayaddress; ?>" >
-    </div>
-
+<body>
+<div class='container' style="margin-top: 120px;">
+	<div id="friend_form">
+		<h2 id="friend_title">Add a friend:</h2>
+			<form role="form" action="friendRequest.php" method="POST">
+	    		<div class="form-group">
+	    			<input type="text" class="form-control" placeholder="Enter Friend's Username" id="friendUsername">
+	    		</div>
+	        	<input type="submit" class="btn btn-default" name="submit" id="friend_submit">
+			</form>
+	</div>
+</div>
+    
 
 </body>
 <style>
-    body {
-        background-color: #50B7A5;
-        color: white;
-    }
-    .pay_titles {
-        padding: 15px;
-        text-align: center;
-    }
+	body {
+		background-color: #50B7A5;
+		color: white;
+		height: 
+	}
+	#friend_title {
+		text-align: center;
+		padding: 20px;
+	}
+	.form-group {
+		margin: auto;
+	}
+	#friendUsername, #friend_submit {
+			margin-top: 4px;
+			margin-bottom: 6px;
+	}
+	#friend_form {
+		width: 50%;
+		margin: auto;
+	}
 </style>

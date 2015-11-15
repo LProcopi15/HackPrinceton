@@ -1,7 +1,7 @@
 
 <?php
-require 'vendor/autoload.php';
-require_once('src/Blockchain.php');
+require '../vendor/autoload.php';
+require_once('../src/Blockchain.php');
 
 $Blockchain = new \Blockchain\Blockchain();
 $identifier = $_POST['identifier'];
@@ -49,7 +49,7 @@ $balance = $json_feed->balance;
 
 ?>
 <head>
-  <title>Bitcoin Submission</title>
+  <title>Bitcoin Submission.</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -97,13 +97,16 @@ $balance = $json_feed->balance;
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="views/index.html">Home</a>
+                        <a href="index.html">Home</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="views/history.html">History</a>
+                        <a href="addFriend.php">Add Friend</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="views/bitcoinform.html">Pay</a>
+                        <a href="history.html">History</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="bitcoinform.html">Pay</a>
                     </li>
                 </ul>
             </div>
@@ -111,7 +114,7 @@ $balance = $json_feed->balance;
         </div>
         <!-- /.container-fluid -->
     </nav>
-  <div id="move-down" style="margin-top: 70px;">
+  <div id="move-down" style="margin-top: 120px;">
         <h2 class="pay_titles">Direct your friends to <a href = "<?php echo $bitcoinpayaddress; ?>" target="_blank"> this link </a> to get paid!</h2>
         <h3 class="pay_titles"> Or have them send you money from the QR code here: </h3>
         <img class="center-block" src="<?php echo $bitcoinpayaddress; ?>" >
